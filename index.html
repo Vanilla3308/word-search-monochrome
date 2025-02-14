@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search</title>
+    <style>
+        body {
+            font-family: "Courier New", monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(24, minmax(15px, 1fr)); /* Responsive sizing */
+            gap: 0;
+            justify-content: center;
+            margin: 20px auto;
+            width: 95vw; /* Fits within iframe */
+            max-width: 90%; /* Prevents overflow */
+            overflow: hidden; /* Avoids layout issues */
+        }
+
+        .cell {
+            width: 100%; /* Auto-adjust */
+            height: auto; /* Keep aspect ratio */
+            aspect-ratio: 1/1; /* Ensures square cells */
+            text-align: center;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(10px, 1.8vw, 18px); /* Responsive text */
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .cell:hover, .highlighted {
+            background-color: lightblue;
+        }
+
+        .found {
+            background-color: lightgreen;
+            text-decoration: line-through;
+        }
+
+        .word-list {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 90%;
+            gap: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .word {
+            padding: 5px 10px;
+            font-size: clamp(12px, 1.5vw, 16px); /* Scales text */
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .word.found {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <h2>Interactive Word Search</h2>
+    <div class="grid-container" id="wordsearch"></div>
+    <h3>Find These Words:</h3>
+    <div class="word-list" id="wordList"></div>
+    
+    <script>
+        const gridData = [
+            "IMMCHILDRENJSVJBLIZZARDU",
+            "BIEFSFSUSQKGBAIYNOMRAHJL",
+            "ASRYLOGEVFNTPINSGCSUODGF",
+            "KTRLEJUKRISCRTGCOYUEETVI",
+            "ELYIGAHUDPPXETLHNTRTDFSR",
+            "GEYMNRIIAAOBEEEEGIPASSRE",
+            "STAAATTRAVELDSBEGRRRKEOP",
+            "EOXFCDKRPLSTNNEREAIOALBL",
+            "IEWAOLAZIREHIILPVHSCTCHA",
+            "KDKOENMEXTKGEOLASCEEIIGC",
+            "OEGDIOVFKMAIRPSLSNSDNCIE",
+            "OUEAYELEPSLRRKELNVJFGIEG",
+            "CVSEMLLLSCFBGIOSNOWMANNS",
+            "ESERECIONAWKGRWJUVHQZITR",
+            "GENBMAWPOROHAYREGSVSDFME",
+            "DNARONDHIFNCGJECBPJDTRAM",
+            "IOCERDOTTYSEYQAAQKENWOGM",
+            "RCYGILORITLWLSTESLCEISIU",
+            "TEDNEEGODSPLLFHPSOVINTCR",
+            "RNNISPCNAUHTOSZWLQDRKYAD",
+            "AIAGSSQJRXFYJHPDMTJFLVLR",
+            "PPCEGFMDTUNOBBIRJCMCENZI",
+            "STHGIFLLABWONSRYRRAEYWEN",
+            "HETALOCOHCTOHSPEPPERMINT"
+        ];
+
+        const words = [
+            "Snowball fights", "Snowflakes", "Neighbors", "Memories", "Sparkle",
+            "Cookies", "Frosty", "Scarf", "Hugs", "Hot Chocolate", "Poinsettia",
+            "Mistletoe", "Goodwill", "Snowman", "Charity", "Family", "Peace",
+            "Cold", "Jingle Bells", "Pine Cones", "Fruitcake", "Drummers",
+            "Skating", "Believe", "Eggnog", "Merry", "Bake", "Good Tidings",
+            "Peppermint", "Fireplace", "Decorate", "Magical", "Wreath",
+            "Carols", "Jolly", "Elf", "Gingerbread", "North Pole", "Sledding",
+            "Children", "Icicles", "Travel", "Candle", "Holly", "Candy Canes",
+            "Surprises", "Reindeer", "Blizzard", "Harmony", "Sleigh",
+            "Bright", "Cheer", "Traditions", "Partridge", "New Year", "Twinkle",
+            "Friends", "Ribbon", "Angels", "Noel"
+        ];
+
+        const container = document.getElementById("wordsearch");
+        const wordListContainer = document.getElementById("wordList");
+
+        gridData.forEach(row => {
+            row.split("").forEach(letter => {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.textContent = letter;
+                cell.addEventListener("click", () => {
+                    cell.classList.toggle("highlighted");
+                });
+                container.appendChild(cell);
+            });
+        });
+
+        words.forEach(word => {
+            const wordElement = document.createElement("div");
+            wordElement.classList.add("word");
+            wordElement.textContent = word;
+            wordListContainer.appendChild(wordElement);
+        });
+    </script>
+</body>
+</html>
